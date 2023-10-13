@@ -1,0 +1,124 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Ano</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let carro of carro">
+      <ng-container>
+        <td>{{ carro.id}}</td>
+        <td>{{ carro.nomeCarro }}</td>
+        <td>{{ carro.ano }}</td>
+        <td>
+        <button class="editar" (click)="abrirModalEditar(content, carro)">Editar</button>
+        <button class="x" (click)="deletar(carro.id)">Excluir</button>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
+<button routerLink="/admin/carros/novo">Cadastrar</button>
+<button routerLink="/admin/carros/editar/:1">Atualizar</button>
+
+<input (click)="abrirModalCarro(content)" type="button" value="Novo Carro" />
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-carrosdetails [carro]="carroSelecionadoParaEdicao" (retorno)="atualizarLista($event)"></app-carrosdetails>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light custom-button" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+ <style class="css">
+    body {
+        font-family: 'Arial', sans-serif;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    }
+
+    th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    }
+
+    th {
+    background-color: #f2f2f2;
+    }
+
+    button {
+    height: 25px;
+    width: 10%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    }
+
+    div .bots{
+      position: absolute;
+      display: flex;
+      justify-content: space-between; 
+      align-items: center; 
+      width: 200px;
+    }
+    .x:hover{
+      background-color: rgb(241, 59, 59);
+    }
+
+
+    button:hover{
+    background-color: #6499E9;
+    color: #fff;
+    border: 1px solid #fff;
+    }
+    input {
+    height: 25px;
+    width: 10%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin: 20px;
+    border: 1px solid #ddd;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    }
+
+    input:hover{
+    background-color: #6499E9;
+    color: #fff;
+    border: 1px solid #fff;
+    }
+
+    .custom-button {
+    height: 35px;
+    width: 10%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  .custom-button:hover {
+    background-color: #6499E9;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+ </style>

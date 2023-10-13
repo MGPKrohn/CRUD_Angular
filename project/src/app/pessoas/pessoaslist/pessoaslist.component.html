@@ -1,0 +1,130 @@
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nome</th>
+      <th>Idade</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let pessoa of pessoa">
+      <ng-container *ngIf="exibirIdade === 'todas' || (exibirIdade === 'menor' && pessoa.idade < 30) || (exibirIdade === 'maior' && pessoa.idade > 30)">
+        <td>{{ pessoa.id}}</td>
+        <td>{{ pessoa.nomePessoa }}</td>
+        <td>{{ pessoa.idade }}
+        <td>
+        <div class="bots">
+        <button class="editar" (click)="abrirModalEditar(content, pessoa)">Editar</button>
+        <button class="x" (click)="deletar(pessoa.id)">Excluir</button>
+        </div>
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>
+<button (click)="alterarCondicaoExibicao('todas')">Exibir Todas</button>
+<button (click)="alterarCondicaoExibicao('menor')">Exibir Menor que 30</button>
+<button (click)="alterarCondicaoExibicao('maior')">Exibir Maior que 30</button>
+<button routerLink="/admin/pessoas/editar/:1">Atualizar</button>
+<input (click)="abrirModal(content)" type="button" value="Nova Pessoa" />
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button type="button" class="btn-close" aria-label="Close"(click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-pessoasdetails [pessoa]="pessoaSelecionadaParaEdicao" (retorno)="atualizarLista($event)" ></app-pessoasdetails>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light custom-button"(click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+
+<style class="css">
+  body {
+      font-family: 'Arial', sans-serif;
+  }
+
+  table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  }
+
+  th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  }
+
+  th {
+  background-color: #f2f2f2;
+  }
+
+
+  div .bots{
+    position: absolute;
+    display: flex;
+    justify-content: space-between; /* Isso alinha os botões à esquerda e à direita */
+    align-items: center; /* Isso centraliza os botões verticalmente */
+    width: 200px; /* A largura desejada para a div */
+  }
+  .x:hover{
+    background-color: rgb(241, 59, 59);
+  }
+  button {
+  height: 25px;
+  width: 10%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin: 20px;
+  border: 1px solid #ddd;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  border-radius: 10px;
+  }
+
+  button:hover{
+  background-color: #6499E9;
+  color: #fff;
+  border: 1px solid #fff;
+  }
+
+  input {
+  height: 25px;
+  width: 10%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin: 20px;
+  border: 1px solid #ddd;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  border-radius: 10px;
+  }
+
+  input:hover{
+  background-color: #6499E9;
+  color: #fff;
+  border: 1px solid #fff;
+  }
+
+  .custom-button {
+  height: 35px;
+  width: 10%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.custom-button:hover {
+  background-color: #6499E9;
+  color: #fff;
+  border: 1px solid #fff;
+}
+
+</style>
